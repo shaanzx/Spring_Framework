@@ -10,8 +10,7 @@ import org.springframework.context.annotation.Scope;
 
 public class AppInitializer {
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context =
-                new AnnotationConfigApplicationContext();
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         context.register(AppConfig.class);
         context.refresh();
 
