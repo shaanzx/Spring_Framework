@@ -21,6 +21,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="09_Rest_Controller" target="17" />
+      <module name="11_Front_end" target="17" />
       <module name="untitled" target="17" />
     </bytecodeTargetLevel>
   </component>
