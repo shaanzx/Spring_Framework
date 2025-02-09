@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Customer Form</title>
-  <link rel="stylesheet" href="styles.css"/>
+<!--  <link rel="stylesheet" href="styles.css"/>-->
   <style>
     /* General styling */
     body {
@@ -187,6 +187,8 @@
     <tr>
       <th>ID</th>
       <th>Name</th>
+      <th>Address</th>
+      <th>Age</th>
       <th>Actions</th>
     </tr>
     </thead>
@@ -196,50 +198,130 @@
   </table>
 </div>
 <script>
-  function saveCustomer() {
-    let id = document.getElementById("id").value;
-    let name = document.getElementById("name").value;
+  const baseUrl = "http://localhost:8080/10_Back_end_Web_exploded/api/v1/customers";
 
-    if (!id || !name) {
-      alert("ID and Name are required!");
+  // Load all customers when the page loads
+  window.onload = function () {
+    loadCustomers();
+  };
+
+  // Function to load all customers
+  async function loadCustomers() {
+    const response = await fetch(`${baseUrl}/getAll`);
+    const customers = await response.json();
+    const table = document.getElementById("customerTable");
+    table.innerHTML = ""; // Clear the table before adding new rows
+
+    customers.forEach(customer => {
+      const row = table.insertRow();
+      row.innerHTML = `
+        <td>${customer.id}</td>
+        <td>${customer.name}</td>
+        <td>${customer.address}</td>
+        <td>${customer.age}</td>
+        <td>
+          <button onclick="editCustomer('${customer.id}')">Edit</button>
+          <button onclick="deleteCustomer('${customer.id}')">Delete</button>
+        </td>
+      `;
+    });
+  }
+
+  // Function to save a customer
+  async function saveCustomer() {
+    const id = document.getElementById("id").value;
+    const name = document.getElementById("name").value;
+    const address = document.getElementById("address").value;
+    const age = document.getElementById("age").value;
+
+    if (!id || !name || !address || !age) {
+      alert("All fields are required!");
       return;
     }
 
-    let table = document.getElementById("customerTable");
-    let row = table.insertRow();
-    row.innerHTML = `<td>${id}</td><td>${name}</td><td>
-            <button onclick="editCustomer(this)">Edit</button>
-            <button onclick="removeCustomer(this)">Delete</button>
-        </td>`;
+    const customer = { id, name, address, age: parseInt(age) };
 
-    clearForm();
+    const response = await fetch(`${baseUrl}/save`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(customer),
+    });
+
+    if (response.ok) {
+      alert("Customer saved successfully!");
+      clearForm();
+      loadCustomers(); // Refresh the table
+    } else {
+      alert("Failed to save customer.");
+    }
   }
 
-  function updateCustomer() {
-    alert("Update functionality can be added here!");
+  // Function to update a customer
+  async function updateCustomer() {
+    const id = document.getElementById("id").value;
+    const name = document.getElementById("name").value;
+    const address = document.getElementById("address").value;
+    const age = document.getElementById("age").value;
+
+    if (!id || !name || !address || !age) {
+      alert("All fields are required!");
+      return;
+    }
+
+    const customer = { id, name, address, age: parseInt(age) };
+
+    const response = await fetch(`${baseUrl}/update`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(customer),
+    });
+
+    if (response.ok) {
+      alert("Customer updated successfully!");
+      clearForm();
+      loadCustomers(); // Refresh the table
+    } else {
+      alert("Failed to update customer.");
+    }
   }
 
-  function deleteCustomer() {
-    alert("Delete functionality can be added here!");
+  // Function to delete a customer
+  async function deleteCustomer(customerId) {
+    const confirmed = confirm("Are you sure you want to delete this customer?");
+    if (!confirmed) return;
+
+    const response = await fetch(`${baseUrl}/delete/${customerId}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      alert("Customer deleted successfully!");
+      loadCustomers(); // Refresh the table
+    } else {
+      alert("Failed to delete customer.");
+    }
   }
 
-  function editCustomer(button) {
-    let row = button.parentElement.parentElement;
-    document.getElementById("id").value = row.cells[0].innerText;
-    document.getElementById("name").value = row.cells[1].innerText;
+  // Function to populate the form for editing
+  async function editCustomer(customerId) {
+    const response = await fetch(`${baseUrl}/getAll`);
+    const customers = await response.json();
+    const customer = customers.find(c => c.id === customerId);
+
+    if (customer) {
+      document.getElementById("id").value = customer.id;
+      document.getElementById("name").value = customer.name;
+      document.getElementById("address").value = customer.address;
+      document.getElementById("age").value = customer.age;
+    }
   }
 
-  function removeCustomer(button) {
-    let row = button.parentElement.parentElement;
-    row.remove();
-  }
-
+  // Function to clear the form
   function clearForm() {
     document.getElementById("id").value = "";
     document.getElementById("name").value = "";
     document.getElementById("address").value = "";
     document.getElementById("age").value = "";
-    document.getElementById("profile-pic").value = "";
   }
 </script>
 
