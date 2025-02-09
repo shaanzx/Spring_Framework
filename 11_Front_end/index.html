@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Customer Form</title>
+  <title>Customer Management</title>
+  <!-- SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <style>
     :root {
       --primary-color: #4f46e5;
@@ -42,7 +44,6 @@
     h2, h3 {
       color: var(--text-color);
       margin-bottom: 1.5rem;
-      font-weight: 600;
     }
 
     h2 {
@@ -64,6 +65,10 @@
       border-radius: 2px;
     }
 
+    h3 {
+      font-size: 1.5rem;
+    }
+
     .form-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -78,8 +83,8 @@
     label {
       display: block;
       margin-bottom: 0.5rem;
-      font-weight: 500;
-      color: var(--text-color);
+      font-weight: 600;
+      margin-left:0.7rem ;
     }
 
     input {
@@ -298,6 +303,7 @@
   <table>
     <thead>
     <tr>
+      <th>Profile</th>
       <th>ID</th>
       <th>Name</th>
       <th>Address</th>
@@ -310,6 +316,8 @@
   </table>
 </div>
 
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   const baseUrl = "http://localhost:8080/10_Back_end_Web_exploded/api/v1/customers";
 
@@ -328,6 +336,7 @@
     customers.forEach(customer => {
       const row = table.insertRow();
       row.innerHTML = `
+          <td><img src="${customer.profilePic}" alt="Profile Picture" width="50" height="50"></td>
           <td>${customer.id}</td>
           <td>${customer.name}</td>
           <td>${customer.address}</td>
@@ -348,7 +357,11 @@
     const age = document.getElementById("age").value;
 
     if (!id || !name || !address || !age) {
-      alert("All fields are required!");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'All fields are required!',
+      });
       return;
     }
 
@@ -361,11 +374,19 @@
     });
 
     if (response.ok) {
-      alert("Customer saved successfully!");
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Customer saved successfully!',
+      });
       clearForm();
       loadCustomers(); // Refresh the table
     } else {
-      alert("Failed to save customer.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to save customer.',
+      });
     }
   }
 
@@ -377,7 +398,11 @@
     const age = document.getElementById("age").value;
 
     if (!id || !name || !address || !age) {
-      alert("All fields are required!");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'All fields are required!',
+      });
       return;
     }
 
@@ -390,28 +415,53 @@
     });
 
     if (response.ok) {
-      alert("Customer updated successfully!");
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Customer updated successfully!',
+      });
       clearForm();
       loadCustomers(); // Refresh the table
     } else {
-      alert("Failed to update customer.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to update customer.',
+      });
     }
   }
 
   // Function to delete a customer
   async function deleteCustomer(customerId) {
-    const confirmed = confirm("Are you sure you want to delete this customer?");
-    if (!confirmed) return;
+    const confirmed = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this customer!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    });
+
+    if (!confirmed.isConfirmed) return;
 
     const response = await fetch(`${baseUrl}/delete/${customerId}`, {
       method: "DELETE",
     });
 
     if (response.ok) {
-      alert("Customer deleted successfully!");
+      Swal.fire({
+        icon: 'success',
+        title: 'Deleted!',
+        text: 'Customer deleted successfully.',
+      });
       loadCustomers(); // Refresh the table
     } else {
-      alert("Failed to delete customer.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to delete customer.',
+      });
     }
   }
 
