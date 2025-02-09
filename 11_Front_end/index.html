@@ -4,144 +4,238 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Customer Form</title>
-<!--  <link rel="stylesheet" href="styles.css"/>-->
   <style>
-    /* General styling */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      margin: 40px;
+    :root {
+      --primary-color: #4f46e5;
+      --secondary-color: #6366f1;
+      --danger-color: #ef4444;
+      --warning-color: #f59e0b;
+      --success-color: #10b981;
+      --text-color: #1f2937;
+      --border-radius: 0.5rem;
+    }
+
+    * {
+      margin: 0;
       padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+      box-sizing: border-box;
     }
 
-    /* Form container */
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #f3f4f6;
+      min-height: 100vh;
+      padding: 2rem;
+      color: black;
+      line-height: 1.5;
+    }
+
     .container {
-      width: 420px;
-      background: #ffffff;
-      padding: 20px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #d4d3d3;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     }
 
-    /* Heading */
     h2, h3 {
-      text-align: center;
-      color: #333;
+      color: var(--text-color);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
     }
 
-    /* Label styling */
+    h2 {
+      font-size: 2.5rem;
+      text-align: center;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
     label {
       display: block;
-      margin-top: 10px;
-      font-weight: bold;
-      color: #555;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text-color);
     }
 
-    /* Input fields */
     input {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 14px;
+      padding: 0.75rem 1rem;
+      border: 1px solid #e5e7eb;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: all 0.2s;
+      background: #f9fafb;
     }
 
-    /* File input style */
+    input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+      background: white;
+    }
+
     input[type="file"] {
-      padding: 5px;
+      padding: 0.5rem;
+      background: linear-gradient(90deg, #ffffff, #000000);
+      color: white  ;
     }
 
-    /* Buttons */
     .buttons {
-      margin-top: 15px;
       display: flex;
-      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
     button {
-      flex: 1;
-      padding: 10px;
-      margin: 5px;
+      padding: 0.75rem 1.5rem;
       border: none;
-      border-radius: 5px;
+      border-radius: var(--border-radius);
+      font-weight: 500;
       cursor: pointer;
-      font-size: 14px;
-      transition: 0.3s;
+      transition: all 0.2s;
+      flex: 1;
     }
 
-    /* Button Colors */
-    button:nth-child(1) {
-      background-color: #28a745;
-      color: white;
-    }
-
-    button:nth-child(2) {
-      background-color: #ffc107;
-      color: black;
-    }
-
-    button:nth-child(3) {
-      background-color: #dc3545;
-      color: white;
-    }
-
-    /* Button Hover Effects */
     button:hover {
-      opacity: 0.8;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
-    /* Table Styling */
+    button:active {
+      transform: translateY(0);
+    }
+
+    .btn-save {
+      background:linear-gradient(90deg, #16573a, #3eb518);
+      color: white;
+    }
+
+    .btn-save:hover {
+      background:linear-gradient(240deg, #16573a, #3eb518);
+      color: white;
+    }
+
+    .btn-update {
+      background:linear-gradient(90deg, #d5af31, #ed4400);
+      color: white;
+    }
+
+    .btn-update:hover {
+      background:linear-gradient(240deg, #d5af31, #ed4400);
+      color: white;
+    }
+
+    .btn-delete {
+      background:linear-gradient(90deg, #6b3333, #000000);
+      color: white;
+    }
+
+    .btn-delete:hover {
+      background:linear-gradient(240deg, #6b3333, #000000);
+      color: white;
+    }
+
     table {
       width: 100%;
-      margin-top: 20px;
-      border-collapse: collapse;
-      background: #fff;
-      border-radius: 5px;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 2rem;
+      background: white;
+      border-radius: var(--border-radius);
       overflow: hidden;
-      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
     }
 
     th {
-      background-color: #007bff;
+      background: #000000 ;
       color: white;
+      font-weight: 500;
+      text-align: center;
+      padding: 1rem;
     }
 
-    /* Table action buttons */
-    td button {
-      padding: 6px 10px;
-      margin-right: 5px;
-      border-radius: 3px;
-      border: none;
-      cursor: pointer;
-      font-size: 12px;
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+
     }
 
-    td button:first-child {
-      background-color: #17a2b8;
+    tr{
+      text-align: center;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover {
+      background: #f9fafb;
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-edit {
+      background: linear-gradient(90deg, #050505, #18bcbd);
       color: white;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
     }
 
-    td button:last-child {
-      background-color: #e74c3c;
+    .btn-edit:hover {
+      background: linear-gradient(240deg, #050505, #18bcbd);
       color: white;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
     }
 
-    /* Responsive Design */
-    @media (max-width: 480px) {
+    .btn-delete-row {
+      background:linear-gradient(90deg, #000000, #ff0000);
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    .btn-delete-row:hover {
+      background:linear-gradient(240deg, #000000, #ff0000);
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
       .container {
-        width: 100%;
-        padding: 15px;
+        padding: 1rem;
       }
 
       .buttons {
@@ -150,35 +244,54 @@
 
       button {
         width: 100%;
-        margin-bottom: 5px;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
       }
     }
   </style>
 </head>
 <body>
-
 <div class="container">
-  <h2>Customer Form</h2>
+  <h2>Customer Management</h2>
 
-  <label for="id">ID:</label>
-  <input type="text" id="id">
+  <div class="form-grid">
+    <div class="form-group">
+      <label for="id">ID</label>
+      <input type="text" id="id" placeholder="Enter customer ID">
+    </div>
 
-  <label for="name">Name:</label>
-  <input type="text" id="name">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Enter customer name"
+             required>
+    </div>
 
-  <label for="address">Address:</label>
-  <input type="text" id="address">
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" id="address" placeholder="Enter customer address"
+             required>
+    </div>
 
-  <label for="age">Age:</label>
-  <input type="number" id="age">
+    <div class="form-group">
+      <label for="age">Age</label>
+      <input type="number" id="age" placeholder="Enter customer age"
+             required>
+    </div>
 
-  <label for="profile-pic">Profile Picture:</label>
-  <input type="file" id="profile-pic">
+    <div class="form-group">
+      <label for="profile-pic">Profile Picture</label>
+      <input type="file" id="profile-pic">
+    </div>
+  </div>
 
   <div class="buttons">
-    <button onclick="saveCustomer()">Save Customer</button>
-    <button onclick="updateCustomer()">Update Customer</button>
-    <button onclick="deleteCustomer()">Delete Customer</button>
+    <button onclick="saveCustomer()" class="btn-save">Save Customer</button>
+    <button onclick="updateCustomer()" class="btn-update">Update Customer</button>
+    <button onclick="deleteCustomer()" class="btn-delete">Delete Customer</button>
   </div>
 
   <h3>Customer List</h3>
@@ -193,10 +306,10 @@
     </tr>
     </thead>
     <tbody id="customerTable">
-    <!-- Dynamic customer rows will be added here -->
     </tbody>
   </table>
 </div>
+
 <script>
   const baseUrl = "http://localhost:8080/10_Back_end_Web_exploded/api/v1/customers";
 
@@ -215,15 +328,15 @@
     customers.forEach(customer => {
       const row = table.insertRow();
       row.innerHTML = `
-        <td>${customer.id}</td>
-        <td>${customer.name}</td>
-        <td>${customer.address}</td>
-        <td>${customer.age}</td>
-        <td>
-          <button onclick="editCustomer('${customer.id}')">Edit</button>
-          <button onclick="deleteCustomer('${customer.id}')">Delete</button>
-        </td>
-      `;
+          <td>${customer.id}</td>
+          <td>${customer.name}</td>
+          <td>${customer.address}</td>
+          <td>${customer.age}</td>
+          <td class="table-actions">
+            <button onclick="editCustomer('${customer.id}')" class="btn-edit">Edit</button>
+            <button onclick="deleteCustomer('${customer.id}')" class="btn-delete-row">Delete</button>
+          </td>
+        `;
     });
   }
 
@@ -324,6 +437,5 @@
     document.getElementById("age").value = "";
   }
 </script>
-
 </body>
 </html>
