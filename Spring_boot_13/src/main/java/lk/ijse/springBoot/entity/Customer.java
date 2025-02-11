@@ -1,18 +1,18 @@
-package lk.ijse.springBoot.dto;
+package lk.ijse.springBoot.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-public class CustomerDTO {
+@Entity
+public class Customer {
+    @Id
     private int id;
     private String name;
     private String address;
 
-    public CustomerDTO() {
-    }
+    public Customer() {}
 
-    public CustomerDTO(int id, String name, String address) {
+    public Customer(int id, String name, String address) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -44,7 +44,7 @@ public class CustomerDTO {
 
     @Override
     public String toString() {
-        return "CustomerDTO{" +
+        return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
