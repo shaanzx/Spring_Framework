@@ -16,6 +16,7 @@
         <module name="05_Configuration" />
         <module name="01_Spring_Core" />
         <module name="02_Spring_Bean_Life_Cycle" />
+        <module name="12_Spring_Data_JPA" />
         <module name="03_Spring_DI" />
       </profile>
     </annotationProcessing>

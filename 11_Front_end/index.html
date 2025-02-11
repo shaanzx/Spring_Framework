@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Customer Management</title>
-  <!-- SweetAlert2 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <style>
     :root {
@@ -316,17 +315,14 @@
   </table>
 </div>
 
-<!-- SweetAlert2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
+<!--<script>
   const baseUrl = "http://localhost:8080/10_Back_end_Web_exploded/api/v1/customers";
 
-  // Load all customers when the page loads
   window.onload = function () {
     loadCustomers();
   };
 
-  // Function to load all customers
   async function loadCustomers() {
     const response = await fetch(`${baseUrl}/getAll`);
     const customers = await response.json();
@@ -348,8 +344,6 @@
         `;
     });
   }
-
-  // Function to save a customer
   async function saveCustomer() {
     const id = document.getElementById("id").value;
     const name = document.getElementById("name").value;
@@ -380,7 +374,7 @@
         text: 'Customer saved successfully!',
       });
       clearForm();
-      loadCustomers(); // Refresh the table
+      loadCustomers();
     } else {
       Swal.fire({
         icon: 'error',
@@ -390,7 +384,6 @@
     }
   }
 
-  // Function to update a customer
   async function updateCustomer() {
     const id = document.getElementById("id").value;
     const name = document.getElementById("name").value;
@@ -421,7 +414,7 @@
         text: 'Customer updated successfully!',
       });
       clearForm();
-      loadCustomers(); // Refresh the table
+      loadCustomers();
     } else {
       Swal.fire({
         icon: 'error',
@@ -431,7 +424,6 @@
     }
   }
 
-  // Function to delete a customer
   async function deleteCustomer(customerId) {
     const confirmed = await Swal.fire({
       title: 'Are you sure?',
@@ -455,7 +447,7 @@
         title: 'Deleted!',
         text: 'Customer deleted successfully.',
       });
-      loadCustomers(); // Refresh the table
+      loadCustomers();
     } else {
       Swal.fire({
         icon: 'error',
@@ -465,7 +457,6 @@
     }
   }
 
-  // Function to populate the form for editing
   async function editCustomer(customerId) {
     const response = await fetch(`${baseUrl}/getAll`);
     const customers = await response.json();
@@ -479,13 +470,15 @@
     }
   }
 
-  // Function to clear the form
   function clearForm() {
     document.getElementById("id").value = "";
     document.getElementById("name").value = "";
     document.getElementById("address").value = "";
     document.getElementById("age").value = "";
   }
-</script>
+</script>-->
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="./js/app.js"></script>
 </body>
 </html>
