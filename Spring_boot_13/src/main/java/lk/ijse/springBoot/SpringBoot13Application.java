@@ -1,13 +1,13 @@
-package lk.ijse.spring_13_spring_boot;
+package lk.ijse.springBoot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Spring13SpringBootApplication {
+public class SpringBoot13Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Spring13SpringBootApplication.class, args);
+        SpringApplication.run(SpringBoot13Application.class, args);
     }
 
 }

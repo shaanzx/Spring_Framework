@@ -1,10 +1,10 @@
-package lk.ijse.spring_13_spring_boot;
+package lk.ijse.springBoot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Spring13SpringBootApplicationTests {
+class SpringBoot13ApplicationTests {
 
     @Test
     void contextLoads() {
