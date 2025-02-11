@@ -1,0 +1,29 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="12_Spring_Data_JPA:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/12_Spring_Data_JPA_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="12_Spring_Data_JPA/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="12_Spring_Data_JPA" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.18.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.18.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.18.2" />
+          <element id="library" level="project" name="Maven: io.micrometer:micrometer-commons:1.14.3" />
+          <element id="library" level="project" name="Maven: io.micrometer:micrometer-observation:1.14.3" />
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.36" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:6.2.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:6.2.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:6.2.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:6.2.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:6.2.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jcl:6.2.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:6.2.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:6.2.2" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
