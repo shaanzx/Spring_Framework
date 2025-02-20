@@ -13,7 +13,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="springboot@localhost" uuid="32efa091-0bb6-4fe3-9aba-ce465041c760">
+    <data-source source="LOCAL" name="springboot@localhost" uuid="dd989ae2-9d3f-4f6c-94fa-1c50ca26b945">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Item Management</title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+    />
+
+    <link
+            rel="stylesheet"
+            href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
+    />
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+            display: flex;
+            align-items: center;
+            font-family: "Roboto", sans-serif;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #6b73ff;
+            box-shadow: 0 0 0 0.25rem rgba(107, 115, 255, 0.25);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #444;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger {
+            border: none;
+            border-radius: 12px;
+            padding: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+        }
+
+        .btn-danger {
+            background-color: #ff6b6b;
+        }
+
+        .btn-primary:hover,
+        .btn-secondary:hover,
+        .btn-danger:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-danger:hover {
+            background-color: #ff5050;
+        }
+
+        .table {
+            border-radius: 12px;
+            overflow: auto;
+            text-align: center;
+            vertical-align: middle;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .table thead {
+            background: rgba(107, 115, 255, 0.1);
+        }
+
+        .table th {
+            font-weight: 600;
+            color: #444;
+            border-bottom: none;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+
+        .table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(107, 115, 255, 0.05);
+        }
+
+        .btn-action {
+            padding: 5px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit {
+            background-color: #ffd93d;
+            color: #000;
+            border: none;
+        }
+
+        .btn-delete {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-danger {
+            color: #ff6b6b;
+        }
+
+        .alert-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-close {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .form-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="form-card">
+        <form id="itemForm">
+            <h2 class="text-center mb-4">Item Information</h2>
+
+            <div class="mb-3">
+                <label for="itemCode" class="form-label">Item Code</label>
+                <input type="text" class="form-control" id="itemCode" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <input type="text" class="form-control" id="description" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="number" class="form-control" id="price" min="0" step="0.01" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="qty" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="qty" min="0" required />
+            </div>
+
+            <div class="d-grid">
+                <button type="button" class="btn btn-primary btn-lg" onclick="saveItem()">
+                    <i class="hgi-stroke hgi-add-team fs-4 align-middle me-2"></i>Save Item
+                </button>
+            </div>
+        </form>
+
+        <div class="item-list mt-5">
+            <h3 class="text-center mb-4">Item List</h3>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover">
+                    <thead>
+                    <tr>
+                        <th>Item Code</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="itemTable">
+                    <!-- Dynamic item rows will be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="mb-3">
+                            <label class="form-label">Item Code</label>
+                            <input type="text" class="form-control" id="editItemCode" readonly />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <input type="text" class="form-control" id="editDescription" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Price</label>
+                            <input type="number" class="form-control" id="editPrice" min="0" step="0.01" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="editQty" min="0" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="updateItem()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content py-3">
+                <div class="modal-header border-0 d-flex flex-column align-items-center">
+                    <div class="bg-danger-subtle text-danger fs-4 mb-2 alert-icon">
+                        <i class="hgi-stroke hgi-alert-02 align-middle"></i>
+                    </div>
+                    <h5 class="modal-title">Delete Confirmation</h5>
+                </div>
+                <div class="modal-body text-center p-0 mb-2">
+                    Are you sure you want to delete this item?
+                </div>
+                <div class="modal-footer d-flex justify-content-center gap-3 border-0">
+                    <button type="button" class="btn btn-secondary bg-secondary-subtle text-black border-0 rounded-pill" data-bs-dismiss="modal">No, Cancel</button>
+                    <button type="button" class="btn btn-danger rounded-pill" id="confirmDeleteBtn">Yes, Delete!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Toast -->
+    <div id="alertContainer" class="position-fixed bottom-0 end-0 my-2 mx-3 z-3">
+        <div id="alertTemplate">
+            <div class="alert alert-dismissible fade show" role="alert">
+                <span class="alert-message"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script>
+    const BASE_URL = "http://localhost:8080/api/v1/item";
+
+    $(document).ready(function () {
+        loadItems();
+
+        $("#itemForm").on("submit", function (e) {
+            e.preventDefault();
+            saveItem();
+        });
+
+        $("#editForm").on("submit", function (e) {
+            e.preventDefault();
+            updateItem();
+        });
+    });
+
+    function saveItem() {
+        const itemData = {
+            itemCode: $("#itemCode").val(),
+            description: $("#description").val(),
+            unitPrice: parseFloat($("#price").val()),
+            qtyOnHand: parseInt($("#qty").val())
+        };
+
+        if (!validateItemData(itemData)) {
+            return;
+        }
+
+        $.ajax({
+            url: `${BASE_URL}/save`,
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(itemData),
+            success: function (response) {
+                showAlert("success", response.message);
+                resetForm();
+                loadItems();
+            },
+            error: function (xhr) {
+                let errorMsg = "Error saving item";
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMsg = xhr.responseJSON.message;
+                }
+                showAlert("error", errorMsg);
+            }
+        });
+    }
+
+    function loadItems() {
+        $.ajax({
+            url: `${BASE_URL}/get`,
+            method: "GET",
+            contentType: "application/json",
+            success: function (response) {
+                if (response.success && response.data) {
+                    const tableBody = $("#itemTable");
+                    tableBody.empty();
+
+                    response.data.forEach(function (item) {
+                        tableBody.append(`
+                            <tr>
+                                <td>${item.itemCode}</td>
+                                <td>${item.description}</td>
+                                <td>${item.unitPrice.toFixed(2)}</td>
+                                <td>${item.qtyOnHand}</td>
+                                <td>
+                                    <button class="btn btn-action btn-edit me-2" data-item-code="${item.itemCode}">
+                                        <i class="hgi-stroke hgi-pencil-edit-02 fs-5"></i>
+                                    </button>
+                                    <button class="btn btn-action btn-delete" data-item-code="${item.itemCode}">
+                                        <i class="hgi-stroke hgi-delete-02 fs-5"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `);
+                    });
+
+                    attachButtonHandlers();
+                }
+            },
+            error: function (xhr) {
+                let errorMsg = "Error loading items";
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMsg = xhr.responseJSON.message;
+                }
+                showAlert("error", errorMsg);
+            }
+        });
+    }
+
+    function attachButtonHandlers() {
+        $(".btn-edit").click(function () {
+            const itemCode = $(this).data("item-code");
+            editItem(itemCode);
+        });
+
+        $(".btn-delete").click(function () {
+            const itemCode = $(this).data("item-code");
+            $("#deleteConfirmModal").data("item-code", itemCode);
+            $("#deleteConfirmModal").modal("show");
+        });
+    }
+
+    function editItem(itemCode) {
+        $.ajax({
+            url: `${BASE_URL}/get`,
+            method: "GET",
+            contentType: "application/json",
+            success: function (response) {
+                if (response.success && response.data) {
+                    const item = response.data.find((i) => i.itemCode === itemCode);
+                    if (item) {
+                        $("#editItemCode").val(item.itemCode);
+                        $("#editDescription").val(item.description);
+                        $("#editPrice").val(item.unitPrice.toFixed(2));
+                        $("#editQty").val(item.qtyOnHand);
+
+                        new bootstrap.Modal("#editModal").show();
+                    }
+                }
+            },
+            error: function (xhr) {
+                let errorMsg = "Error fetching item data";
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMsg = xhr.responseJSON.message;
+                }
+                showAlert("error", errorMsg);
+            }
+        });
+    }
+
+    function updateItem() {
+        const itemData = {
+            itemCode: $("#editItemCode").val(),
+            description: $("#editDescription").val(),
+            unitPrice: parseFloat($("#editPrice").val()),
+            qtyOnHand: parseInt($("#editQty").val())
+        };
+
+        if (!validateItemData(itemData)) {
+            return;
+        }
+
+        $.ajax({
+            url: `${BASE_URL}/update`,
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(itemData),
+            success: function (response) {
+                showAlert("success", response.message);
+                $("#editModal").modal("hide");
+                loadItems();
+            },
+            error: function (xhr) {
+                let errorMsg = "Error updating item";
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMsg = xhr.responseJSON.message;
+                }
+                showAlert("error", errorMsg);
+            }
+        });
+    }
+
+    // Add handler for confirm delete button
+    $("#confirmDeleteBtn").click(function () {
+        const itemCode = $("#deleteConfirmModal").data("item-code");
+        deleteItem(itemCode);
+        $("#deleteConfirmModal").modal("hide");
+    });
+
+    // Delete item
+    function deleteItem(itemCode) {
+        $.ajax({
+            url: `${BASE_URL}/delete/${itemCode}`,
+            method: "DELETE",
+            contentType: "application/json",
+            success: function (response) {
+                showAlert("success", response.message);
+                loadItems();
+            },
+            error: function (xhr) {
+                let errorMsg = "Error deleting item";
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMsg = xhr.responseJSON.message;
+                }
+                showAlert("error", errorMsg);
+            }
+        });
+    }
+
+    function validateItemData(data) {
+        if (!data.itemCode || !data.description || !data.unitPrice || !data.qtyOnHand) {
+            showAlert("error", "Please fill in all fields");
+            return false;
+        }
+        if (data.price < 0) {
+            showAlert("error", "Price cannot be negative");
+            return false;
+        }
+        if (data.qty < 0) {
+            showAlert("error", "Quantity cannot be negative");
+            return false;
+        }
+        return true;
+    }
+
+    function resetForm() {
+        $("#itemForm")[0].reset();
+    }
+
+    function showAlert(type, message) {
+        const alertClass = type === "success" ? "bg-success" : "bg-danger";
+        const alertHtml = `
+            <div class="alert ${alertClass} text-white alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        `;
+
+        $("#alertContainer").append(alertHtml);
+
+        setTimeout(() => {
+            $(".alert").alert("close");
+        }, 3000);
+    }
+</script>
+</body>
+</html>
