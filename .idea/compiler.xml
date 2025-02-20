@@ -12,22 +12,13 @@
         <module name="09_Reset_Controller" />
         <module name="06_RunTime_Value_Injection" />
         <module name="08_Spring_Web_MVC" />
+        <module name="Spring_boot_13" />
         <module name="10_Back_end" />
         <module name="05_Configuration" />
         <module name="01_Spring_Core" />
         <module name="02_Spring_Bean_Life_Cycle" />
         <module name="12_Spring_Data_JPA" />
         <module name="03_Spring_DI" />
-      </profile>
-      <profile name="Annotation profile for Spring_boot_13" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
-        </processorPath>
-        <module name="Spring_boot_13" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

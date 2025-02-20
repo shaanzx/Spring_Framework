@@ -2,6 +2,7 @@ package lk.ijse.springBoot.controller;
 
 import lk.ijse.springBoot.dto.ItemDto;
 import lk.ijse.springBoot.service.ItemService;
+import lk.ijse.springBoot.service.serviceImpl.ItemServiceImpl;
 import lk.ijse.springBoot.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
