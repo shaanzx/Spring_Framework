@@ -5,11 +5,11 @@ import lk.ijse.springBoot.dto.CustomerDTO;
 import java.util.List;
 
 public interface CustomerService {
-    boolean saveCustomer(CustomerDTO customerDTO);
+    void saveCustomer(CustomerDTO customerDTO);
 
-    boolean updateCustomer(CustomerDTO customerDTO);
+    void updateCustomer(CustomerDTO customerDTO);
 
-    boolean deleteCustomer(int id);
+    void deleteCustomer(int id);
 
     List<CustomerDTO> getCustomers();
 }

@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/v1/customer", produces = "application/json")
+@RequestMapping(value = "api/v1/customer")
 @CrossOrigin(origins = "*")
 public class CustomerController {
 
@@ -20,53 +20,25 @@ public class CustomerController {
 
     @PostMapping("/save")
     public ResponseEntity<Response> saveCustomer(@RequestBody CustomerDTO customerDTO) {
-        try {
-            boolean isSaved = customerService.saveCustomer(customerDTO);
-            if (isSaved) {
-                return ResponseEntity.status(HttpStatus.CREATED).body(new Response("Customer saved successfully",  HttpStatus.OK));
-            } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("Failed to save customer", HttpStatus.NOT_FOUND));
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error saving customer: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
-        }
+            customerService.saveCustomer(customerDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(new Response("Customer saved successfully",  HttpStatus.OK));
     }
 
     @PutMapping("/update")
     public ResponseEntity<Response> updateCustomer(@RequestBody CustomerDTO customerDTO) {
-        try {
-            boolean isUpdated = customerService.updateCustomer(customerDTO);
-            if (isUpdated) {
-                return ResponseEntity.ok(new Response("Customer updated successfully", HttpStatus.CREATED));
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Customer not found", HttpStatus.NOT_FOUND));
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error updating customer: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
-        }
+        customerService.updateCustomer(customerDTO);
+        return ResponseEntity.ok(new Response("Customer updated successfully", HttpStatus.CREATED));
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Response> deleteCustomer(@PathVariable int id) {
-        try {
-            boolean isDeleted = customerService.deleteCustomer(id);
-            if (isDeleted) {
-                return ResponseEntity.ok(new Response("Customer deleted successfully", HttpStatus.OK));
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Customer not found", HttpStatus.NOT_FOUND));
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error deleting customer: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
-        }
+            customerService.deleteCustomer(id);
+            return ResponseEntity.ok(new Response("Customer deleted successfully", HttpStatus.OK));
     }
 
     @GetMapping("/get")
     public ResponseEntity<Response> getCustomers() {
-        try {
             List<CustomerDTO> customers = customerService.getCustomers();
             return ResponseEntity.ok(new Response("Customers retrieved successfully", HttpStatus.OK, customers));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error retrieving customers: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
-        }
     }
 }

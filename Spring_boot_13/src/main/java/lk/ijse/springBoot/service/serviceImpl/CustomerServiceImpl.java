@@ -22,8 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
     private ModelMapper modelMapper;
 
     @Override
-    public boolean saveCustomer(CustomerDTO customerDTO) {
-        try {
+    public void saveCustomer(CustomerDTO customerDTO) {
             /*customerRepo.save(new Customer(
                     customerDTO.getId(),
                     customerDTO.getName(),
@@ -32,47 +31,35 @@ public class CustomerServiceImpl implements CustomerService {
                 throw new RuntimeException("Customer already exists");
             }
             customerRepo.save(modelMapper.map(customerDTO, Customer.class));
-            return true;
-        } catch (Exception e) {
-            throw new RuntimeException("Error saving customer: " + e.getMessage());
-        }
     }
 
     @Override
-    public boolean updateCustomer(CustomerDTO customerDTO) {
-        try {
+    public void updateCustomer(CustomerDTO customerDTO) {
+
             Optional<Customer> optionalCustomer = customerRepo.findById(customerDTO.getId());
             if (optionalCustomer.isPresent()) {
                 Customer customer = optionalCustomer.get();
                 modelMapper.map(customerDTO, customer);
                 customerRepo.save(customer);
-                return true;
+
             } else {
                 throw new RuntimeException("Customer not found");
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Error updating customer: " + e.getMessage());
-        }
     }
 
     @Override
-    public boolean deleteCustomer(int id) {
-        try {
+    public void deleteCustomer(int id) {
+
             Optional<Customer> optionalCustomer = customerRepo.findById(id);
             if (optionalCustomer.isPresent()) {
                 customerRepo.deleteById(id);
-                return true;
             } else {
                 throw new RuntimeException("Customer not found");
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Error deleting customer: " + e.getMessage());
-        }
     }
 
     @Override
     public List<CustomerDTO> getCustomers() {
-        try {
             /*List<Customer> customers = customerRepo.findAll();
             List<CustomerDTO> customerDTOS = new ArrayList<>();
             for (Customer customer : customers) {
@@ -84,8 +71,5 @@ public class CustomerServiceImpl implements CustomerService {
             }
             return customerDTOS;*/
             return  modelMapper.map(customerRepo.findAll(),new TypeToken<List<CustomerDTO>>(){}.getType());
-        } catch (Exception e) {
-            throw new RuntimeException("Error retrieving customers: " + e.getMessage());
-        }
     }
 }
