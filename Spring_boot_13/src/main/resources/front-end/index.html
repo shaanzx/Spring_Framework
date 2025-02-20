@@ -354,7 +354,6 @@
         </div>
     </div>
 
-    <!-- Alert Toast -->
     <div
             id="alertContainer"
             class="position-fixed bottom-0 end-0 my-2 mx-3 z-3"
@@ -380,7 +379,6 @@
     $(document).ready(function () {
         loadCustomers();
 
-        // Initialize form submissions
         $("#customerForm").on("submit", function (e) {
             e.preventDefault();
             saveCustomer();
@@ -392,7 +390,6 @@
         });
     });
 
-    // Save customer
     function saveCustomer() {
         const customerData = {
             id: $("#id").val(),
@@ -424,14 +421,13 @@
         });
     }
 
-    // Load customers
     function loadCustomers() {
         $.ajax({
             url: `${BASE_URL}/get`,
             method: "GET",
             contentType: "application/json",
             success: function (response) {
-                if (response.success && response.data) {
+                if (response.status && response.data) {
                     const tableBody = $("#customerTable");
                     tableBody.empty();
 
@@ -453,7 +449,6 @@
                         `);
                     });
 
-                    // Attach event handlers to new buttons
                     attachButtonHandlers();
                 }
             },
@@ -467,7 +462,6 @@
         });
     }
 
-    // Attach event handlers to dynamic buttons
     function attachButtonHandlers() {
         $(".btn-edit").click(function () {
             const customerId = $(this).data("customer-id");
@@ -481,14 +475,13 @@
         });
     }
 
-    // Edit customer
     function editCustomer(id) {
         $.ajax({
             url: `${BASE_URL}/get`,
             method: "GET",
             contentType: "application/json",
             success: function (response) {
-                if (response.success && response.data) {
+                if (response.status && response.data) {
                     const customer = response.data.find((c) => c.id === id);
                     if (customer) {
                         $("#editId").val(customer.id);
@@ -509,7 +502,6 @@
         });
     }
 
-    // Update customer
     function updateCustomer() {
         const customerData = {
             id: $("#editId").val(),
@@ -541,14 +533,12 @@
         });
     }
 
-    // Add handler for confirm delete button
     $("#confirmDeleteBtn").click(function () {
         const customerId = $("#deleteConfirmModal").data("customer-id");
         deleteCustomer(customerId);
         $("#deleteConfirmModal").modal("hide");
     });
 
-    // Delete customer
     function deleteCustomer(id) {
         $.ajax({
             url: `${BASE_URL}/delete/${id}`,
@@ -568,7 +558,6 @@
         });
     }
 
-    // Helper functions
     function validateCustomerData(data) {
         if (!data.name || !data.address) {
             showAlert("error", "Please fill in all fields");

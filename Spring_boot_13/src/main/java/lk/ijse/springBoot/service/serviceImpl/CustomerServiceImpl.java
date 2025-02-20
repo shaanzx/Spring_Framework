@@ -28,6 +28,9 @@ public class CustomerServiceImpl implements CustomerService {
                     customerDTO.getId(),
                     customerDTO.getName(),
                     customerDTO.getAddress()*/
+            if(customerRepo.existsById(customerDTO.getId())){
+                throw new RuntimeException("Customer already exists");
+            }
             customerRepo.save(modelMapper.map(customerDTO, Customer.class));
             return true;
         } catch (Exception e) {

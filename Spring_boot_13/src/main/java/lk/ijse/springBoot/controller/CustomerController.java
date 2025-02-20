@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/v1/customer", produces = "application/json", consumes = "application/json")
+@RequestMapping(value = "api/v1/customer", produces = "application/json")
 @CrossOrigin(origins = "*")
 public class CustomerController {
 
@@ -23,12 +23,12 @@ public class CustomerController {
         try {
             boolean isSaved = customerService.saveCustomer(customerDTO);
             if (isSaved) {
-                return ResponseEntity.status(HttpStatus.CREATED).body(new Response("Customer saved successfully", true));
+                return ResponseEntity.status(HttpStatus.CREATED).body(new Response("Customer saved successfully",  HttpStatus.OK));
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("Failed to save customer", false));
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("Failed to save customer", HttpStatus.NOT_FOUND));
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error saving customer: " + e.getMessage(), false));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error saving customer: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
         }
     }
 
@@ -37,12 +37,12 @@ public class CustomerController {
         try {
             boolean isUpdated = customerService.updateCustomer(customerDTO);
             if (isUpdated) {
-                return ResponseEntity.ok(new Response("Customer updated successfully", true));
+                return ResponseEntity.ok(new Response("Customer updated successfully", HttpStatus.CREATED));
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Customer not found", false));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Customer not found", HttpStatus.NOT_FOUND));
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error updating customer: " + e.getMessage(), false));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error updating customer: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
         }
     }
 
@@ -51,12 +51,12 @@ public class CustomerController {
         try {
             boolean isDeleted = customerService.deleteCustomer(id);
             if (isDeleted) {
-                return ResponseEntity.ok(new Response("Customer deleted successfully", true));
+                return ResponseEntity.ok(new Response("Customer deleted successfully", HttpStatus.OK));
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Customer not found", false));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Customer not found", HttpStatus.NOT_FOUND));
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error deleting customer: " + e.getMessage(), false));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error deleting customer: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
         }
     }
 
@@ -64,9 +64,9 @@ public class CustomerController {
     public ResponseEntity<Response> getCustomers() {
         try {
             List<CustomerDTO> customers = customerService.getCustomers();
-            return ResponseEntity.ok(new Response("Customers retrieved successfully", true, customers));
+            return ResponseEntity.ok(new Response("Customers retrieved successfully", HttpStatus.OK, customers));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error retrieving customers: " + e.getMessage(), false));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error retrieving customers: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
         }
     }
 }

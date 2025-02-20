@@ -1,18 +1,20 @@
 package lk.ijse.springBoot.util;
 
+import org.springframework.http.HttpStatus;
+
 public class Response {
     private String message;
-    private boolean success;
+    private int status;
     private Object data;
 
-    public Response(String message, boolean success) {
+    public Response(String message, HttpStatus status) {
         this.message = message;
-        this.success = success;
+        this.status = status.value();
     }
 
-    public Response(String message, boolean success, Object data) {
+    public Response(String message, HttpStatus status, Object data) {
         this.message = message;
-        this.success = success;
+        this.status = status.value();
         this.data = data;
     }
 
@@ -20,20 +22,20 @@ public class Response {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public int getStatus() {
+        return status;
     }
 
     public Object getData() {
         return data;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setStatus(HttpStatus status) {
+        this.status = status.value();
     }
 
     public void setData(Object data) {
