@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/v1/customer", produces = "application/json", consumes = "application/json")
+@CrossOrigin(origins = "*")
 public class CustomerController {
 
     @Autowired
