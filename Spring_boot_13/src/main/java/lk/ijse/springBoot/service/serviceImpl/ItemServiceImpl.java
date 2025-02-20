@@ -22,53 +22,39 @@ public class ItemServiceImpl implements ItemService {
     private ModelMapper modelMapper;
 
     @Override
-    public boolean saveItem(ItemDto itemDto) {
-            try {
-                itemRepo.save(modelMapper.map(itemDto, Item.class));
-                return true;
-            } catch (Exception e) {
-                throw new RuntimeException("Error saving item: " + e.getMessage());
+    public void saveItem(ItemDto itemDto) {
+           if (itemRepo.existsById(itemDto.getItemCode())) {
+                throw new RuntimeException("Item already exists");
             }
+           itemRepo.save(modelMapper.map(itemDto, Item.class));
     }
 
     @Override
-    public boolean updateItem(ItemDto itemDto) {
-        try {
+    public void updateItem(ItemDto itemDto) {
+
             Optional<Item> optionalCustomer = itemRepo.findById(itemDto.getItemCode());
             if (optionalCustomer.isPresent()) {
                 Item item = optionalCustomer.get();
                 modelMapper.map(itemDto,item);
                 itemRepo.save(item);
-                return true;
             } else {
                 throw new RuntimeException("Item not found");
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Error updating item: " + e.getMessage());
-        }
     }
 
     @Override
-    public boolean deleteItem(int itemCode) {
-        try {
+    public void deleteItem(int itemCode) {
+
             Optional<Item> optionalItem = itemRepo.findById(itemCode);
             if (optionalItem.isPresent()) {
                 itemRepo.deleteById(itemCode);
-                return true;
             } else {
                 throw new RuntimeException("Item not found");
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Error deleting item: " + e.getMessage());
-        }
     }
 
     @Override
     public List<ItemDto> getAllItems() {
-        try {
             return modelMapper.map(itemRepo.findAll(),new TypeToken<List<ItemDto>>(){}.getType());
-        } catch (Exception e) {
-            throw new RuntimeException("Error retrieving items: " + e.getMessage());
-        }
     }
 }
