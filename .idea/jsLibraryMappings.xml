@@ -2,5 +2,6 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$/11_Front_end" libraries="{jquery-3.7.1, sweetalert2}" />
+    <file url="file://$PROJECT_DIR$/Spring_boot_13" libraries="{hgi-stroke-rounded}" />
   </component>
 </project>

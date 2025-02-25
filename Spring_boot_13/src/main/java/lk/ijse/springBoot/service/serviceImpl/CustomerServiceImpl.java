@@ -50,9 +50,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteCustomer(int id) {
 
-            Optional<Customer> optionalCustomer = customerRepo.findById(id);
+            Optional<Customer> optionalCustomer = customerRepo.findById(String.valueOf(id));
             if (optionalCustomer.isPresent()) {
-                customerRepo.deleteById(id);
+                customerRepo.deleteById(String.valueOf(id));
             } else {
                 throw new RuntimeException("Customer not found");
             }

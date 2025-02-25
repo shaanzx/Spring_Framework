@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 public class Customer {
     @Id
-    private int id;
+    private String id;
     private String name;
     private String address;
 
@@ -19,17 +19,17 @@ public class Customer {
 
     public Customer() {}
 
-    public Customer(int id, String name, String address) {
+    public Customer(String id, String name, String address) {
         this.id = id;
         this.name = name;
         this.address = address;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

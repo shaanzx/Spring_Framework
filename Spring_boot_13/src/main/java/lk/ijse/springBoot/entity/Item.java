@@ -6,25 +6,25 @@ import jakarta.persistence.Id;
 @Entity
 public class Item {
     @Id
-    private int itemCode;
+    private String itemCode;
     private String description;
     private double unitPrice;
     private int qtyOnHand;
 
     public Item() {}
 
-    public Item(int itemCode, String description, double unitPrice, int qtyOnHand) {
+    public Item(String itemCode, String description, double unitPrice, int qtyOnHand) {
         this.itemCode = itemCode;
         this.description = description;
         this.unitPrice = unitPrice;
         this.qtyOnHand = qtyOnHand;
     }
 
-    public int getItemCode() {
+    public String getItemCode() {
         return itemCode;
     }
 
-    public void setItemCode(int itemCode) {
+    public void setItemCode(String itemCode) {
         this.itemCode = itemCode;
     }
 

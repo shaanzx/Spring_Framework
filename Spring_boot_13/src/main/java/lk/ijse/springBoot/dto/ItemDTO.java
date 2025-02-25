@@ -1,26 +1,26 @@
 package lk.ijse.springBoot.dto;
 
-public class ItemDto {
-    private int itemCode;
+public class ItemDTO {
+    private String itemCode;
     private String description;
     private double unitPrice;
     private int qtyOnHand;
 
-    public ItemDto() {
+    public ItemDTO() {
     }
 
-    public ItemDto(int itemCode, String description, double unitPrice, int qtyOnHand) {
+    public ItemDTO(String itemCode, String description, double unitPrice, int qtyOnHand) {
         this.itemCode = itemCode;
         this.description = description;
         this.unitPrice = unitPrice;
         this.qtyOnHand = qtyOnHand;
     }
 
-    public int getItemCode() {
+    public String getItemCode() {
         return itemCode;
     }
 
-    public void setItemCode(int itemCode) {
+    public void setItemCode(String itemCode) {
         this.itemCode = itemCode;
     }
 

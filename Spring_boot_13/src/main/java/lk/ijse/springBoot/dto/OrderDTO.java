@@ -1,18 +1,24 @@
 package lk.ijse.springBoot.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class OrderDTO {
     private String orderId;
+    private String customerId;
     private Date orderDate;
-    private CustomerDTO customer;
+    private double total;
+    private List<OrderDetailsDTO> items;
 
-    public OrderDTO() {}
+    public OrderDTO() {
+    }
 
-    public OrderDTO(String orderId, Date orderDate, CustomerDTO customer) {
+    public OrderDTO(String orderId, String customerId, Date orderDate, double total, List<OrderDetailsDTO> items) {
         this.orderId = orderId;
+        this.customerId = customerId;
         this.orderDate = orderDate;
-        this.customer = customer;
+        this.total = total;
+        this.items = items;
     }
 
     public String getOrderId() {
@@ -23,6 +29,14 @@ public class OrderDTO {
         this.orderId = orderId;
     }
 
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
     public Date getOrderDate() {
         return orderDate;
     }
@@ -31,11 +45,19 @@ public class OrderDTO {
         this.orderDate = orderDate;
     }
 
-    public CustomerDTO getCustomer() {
-        return customer;
+    public double getTotal() {
+        return total;
     }
 
-    public void setCustomer(CustomerDTO customer) {
-        this.customer = customer;
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public List<OrderDetailsDTO> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderDetailsDTO> items) {
+        this.items = items;
     }
 }

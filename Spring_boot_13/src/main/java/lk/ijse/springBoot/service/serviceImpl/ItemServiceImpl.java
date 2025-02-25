@@ -1,6 +1,6 @@
 package lk.ijse.springBoot.service.serviceImpl;
 
-import lk.ijse.springBoot.dto.ItemDto;
+import lk.ijse.springBoot.dto.ItemDTO;
 import lk.ijse.springBoot.entity.Item;
 import lk.ijse.springBoot.repository.ItemRepo;
 import lk.ijse.springBoot.service.ItemService;
@@ -22,7 +22,7 @@ public class ItemServiceImpl implements ItemService {
     private ModelMapper modelMapper;
 
     @Override
-    public void saveItem(ItemDto itemDto) {
+    public void saveItem(ItemDTO itemDto) {
            if (itemRepo.existsById(itemDto.getItemCode())) {
                 throw new RuntimeException("Item already exists");
             }
@@ -30,7 +30,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void updateItem(ItemDto itemDto) {
+    public void updateItem(ItemDTO itemDto) {
 
             Optional<Item> optionalCustomer = itemRepo.findById(itemDto.getItemCode());
             if (optionalCustomer.isPresent()) {
@@ -45,16 +45,16 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void deleteItem(int itemCode) {
 
-            Optional<Item> optionalItem = itemRepo.findById(itemCode);
+            Optional<Item> optionalItem = itemRepo.findById(String.valueOf(itemCode));
             if (optionalItem.isPresent()) {
-                itemRepo.deleteById(itemCode);
+                itemRepo.deleteById(String.valueOf(itemCode));
             } else {
                 throw new RuntimeException("Item not found");
             }
     }
 
     @Override
-    public List<ItemDto> getAllItems() {
-            return modelMapper.map(itemRepo.findAll(),new TypeToken<List<ItemDto>>(){}.getType());
+    public List<ItemDTO> getAllItems() {
+            return modelMapper.map(itemRepo.findAll(),new TypeToken<List<ItemDTO>>(){}.getType());
     }
 }

@@ -1,6 +1,6 @@
 package lk.ijse.springBoot.controller;
 
-import lk.ijse.springBoot.dto.ItemDto;
+import lk.ijse.springBoot.dto.ItemDTO;
 import lk.ijse.springBoot.service.ItemService;
 import lk.ijse.springBoot.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class ItemController {
     private ItemService itemService;
 
     @PostMapping("/save")
-    public ResponseEntity<Response> saveItem(@RequestBody ItemDto itemDto) {
+    public ResponseEntity<Response> saveItem(@RequestBody ItemDTO itemDto) {
         itemService.saveItem(itemDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -27,7 +27,7 @@ public class ItemController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Response> updateItem(@RequestBody ItemDto itemDto) {
+    public ResponseEntity<Response> updateItem(@RequestBody ItemDTO itemDto) {
         itemService.updateItem(itemDto);
         return ResponseEntity
                 .ok(new Response("Item updated successfully", HttpStatus.OK));
@@ -41,7 +41,7 @@ public class ItemController {
 
     @GetMapping("/get")
     public ResponseEntity<Response> getAllItems() {
-        List<ItemDto> items = itemService.getAllItems();
+        List<ItemDTO> items = itemService.getAllItems();
         return ResponseEntity
                 .ok(new Response("Items retrieved successfully", HttpStatus.OK, items));
     }
