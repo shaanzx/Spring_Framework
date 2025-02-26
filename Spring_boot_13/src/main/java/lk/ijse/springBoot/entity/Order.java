@@ -2,7 +2,6 @@ package lk.ijse.springBoot.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -34,7 +33,6 @@ public class Order {
         this.orderDetails = orderDetails;
     }
 
-    // Getters and Setters
     public String getOrderId() {
         return orderId;
     }

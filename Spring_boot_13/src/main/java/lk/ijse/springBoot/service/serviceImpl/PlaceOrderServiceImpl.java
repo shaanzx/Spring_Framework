@@ -8,7 +8,6 @@ import lk.ijse.springBoot.entity.OrderDetails;
 import lk.ijse.springBoot.repository.ItemRepo;
 import lk.ijse.springBoot.repository.OrderDetailsRepo;
 import lk.ijse.springBoot.repository.OrderRepo;
-import lk.ijse.springBoot.repository.PlaceOrderRepo;
 import lk.ijse.springBoot.service.PlaceOrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
