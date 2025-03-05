@@ -34,3 +34,5 @@
 2025-03-05T11:51:14.999+05:30  INFO 11304 --- [16_Spring_boot_logins] [http-nio-8080-exec-2] l.i.s.controller.DemoController          : This is an info log message
 2025-03-05T11:51:14.999+05:30  WARN 11304 --- [16_Spring_boot_logins] [http-nio-8080-exec-2] l.i.s.controller.DemoController          : This is a warn log message
 2025-03-05T11:51:14.999+05:30 ERROR 11304 --- [16_Spring_boot_logins] [http-nio-8080-exec-2] l.i.s.controller.DemoController          : This is an error logging message
+2025-03-05T12:10:04.058+05:30  INFO 11304 --- [16_Spring_boot_logins] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-05T12:10:04.236+05:30  INFO 11304 --- [16_Spring_boot_logins] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
