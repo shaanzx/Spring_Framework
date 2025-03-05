@@ -10,6 +10,7 @@
         <module name="07_Spring_Environment" />
         <module name="09_Reset_Controller" />
         <module name="06_RunTime_Value_Injection" />
+        <module name="Spring_boot_logins" />
         <module name="01_Spring_Core" />
         <module name="12_Spring_Data_JPA" />
         <module name="04_FullMode_Vs_LightMode" />
@@ -36,6 +37,7 @@
       <module name="Spring_Boot_Bean_Validation" options="-parameters" />
       <module name="Spring_Security_14" options="-parameters" />
       <module name="Spring_boot_13" options="-parameters" />
+      <module name="Spring_boot_logins" options="-parameters" />
     </option>
   </component>
 </project>
