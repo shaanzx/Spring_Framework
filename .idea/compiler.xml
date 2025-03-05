@@ -13,6 +13,7 @@
         <module name="01_Spring_Core" />
         <module name="12_Spring_Data_JPA" />
         <module name="04_FullMode_Vs_LightMode" />
+        <module name="Spring_Boot_Bean_Validation" />
         <module name="08_Spring_Web_MVC" />
         <module name="Spring_boot_13" />
         <module name="10_Back_end" />
@@ -32,6 +33,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Spring_13_Spring_Boot" options="-parameters" />
+      <module name="Spring_Boot_Bean_Validation" options="-parameters" />
       <module name="Spring_Security_14" options="-parameters" />
       <module name="Spring_boot_13" options="-parameters" />
     </option>
